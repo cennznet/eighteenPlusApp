@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended"
+  ],
+  "plugins": ["react", "jsx-a11y", "import", "jest"],
+  "rules": {
+    "no-console": 1,
+    "react/forbid-prop-types": 0,
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "global-require": 0,
+    "prettier/prettier": "error"
+  },
+  "globals": {
+    "__DEV__": true,
+    "__PROD__": true,
+    "document": true,
+    "window": true
+  },
+  "env": {
+    "jest/globals": true
+  }
+}
