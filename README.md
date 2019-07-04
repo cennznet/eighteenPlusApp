@@ -1,6 +1,6 @@
 # EighteenPlus App
 
-A React-Native demo app to use [Attestation module](https://github.com/cennznet/spin2win) on CENNZNET.
+A React-Native demo app to use [Attestation module](https://github.com/cennznet/crml-identity.js) on CENNZNET.
 
 ## Setup Environment
 
