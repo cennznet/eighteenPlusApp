@@ -15,7 +15,8 @@
  */
 
 import React, { PureComponent } from 'react';
-import { ActionSheetIOS, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import ActionSheet from 'react-native-actionsheet';
 
 import { Container, ContentContainer, TypeContainer, TypeText } from './style';
 import { modalNavigationOptions } from '../../navigator/appNavigationOptions';
@@ -52,24 +53,23 @@ class AddClaimPage extends PureComponent <Props> {
     return topicTypes.map(type => topicDescs[type]);
   }
 
-  onSelectDocType = () => {
-    ActionSheetIOS.showActionSheetWithOptions(
-      {
-        title: 'Select the topic',
-        options: [...this.docTypes, 'Cancel'],
-        destructiveButtonIndex: 3,
-        cancelButtonIndex: 3,
-      },
-      (index) => {
+  renderActionSheetView = () => (
+    <ActionSheet
+      ref={a => this.ActionSheet = a}
+      title={'Select the topic'}
+      options={[...this.docTypes, 'Cancel']}
+      destructiveButtonIndex={3}
+      cancelButtonIndex={3}
+      onPress={(index) => {
         if (index < 3) {
           const { onDocTypeChanged } = this.props;
           const docType = this.docTypes[index];
           onDocTypeChanged(topicTypes[index]);
           this.setState({ docType });
         }
-      },
-    );
-  };
+      }}
+    />
+  );
 
   render() {
     const { address, onIssueClaim } = this.props;
@@ -83,7 +83,7 @@ class AddClaimPage extends PureComponent <Props> {
             </TypeText>
           </RowItem>
           <RowItem title="Document type">
-            <TypeContainer onPress={this.onSelectDocType}>
+            <TypeContainer onPress={() => this.ActionSheet.show()}>
               <TypeText light={!docType}>{this.docType}</TypeText>
             </TypeContainer>
           </RowItem>
@@ -94,6 +94,7 @@ class AddClaimPage extends PureComponent <Props> {
           disabled={!docType}
           onPress={onIssueClaim}
         />
+        {this.renderActionSheetView()}
       </Container>
     );
   }
