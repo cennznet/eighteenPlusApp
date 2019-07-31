@@ -16,7 +16,7 @@
 
 import React, { PureComponent } from 'react';
 import { View, Alert } from 'react-native';
-import Camera from 'react-native-camera';
+import { RNCamera } from 'react-native-camera';
 
 import { modalNavigationOptions } from '../../navigator/appNavigationOptions';
 import { issuer } from '../../../utils/cennnznet';
@@ -49,6 +49,15 @@ class ScanQRCodePage extends PureComponent <Props> {
 
   state = { serviceType: null, previousData: null };
 
+  get permissionOptions() {
+    return {
+      title: 'Permission to use camera',
+      message: 'We need your permission to use your camera',
+      buttonPositive: 'Ok',
+      buttonNegative: 'Cancel',
+    };
+  }
+
   componentWillMount() {
     const serviceType = this.props.navigation.getParam('type');
     this.setState({ serviceType });
@@ -80,9 +89,12 @@ class ScanQRCodePage extends PureComponent <Props> {
     const { onBarCodeRead, onPageDismiss } = this.props;
     const { serviceType } = this.state;
     return (
-      <Camera
+      <RNCamera
         style={{ flex: 1 }}
-        aspect={Camera.constants.Aspect.fill}
+        captureAudio={false}
+        type={RNCamera.Constants.Type.back}
+        flashMode={RNCamera.Constants.FlashMode.on}
+        androidCameraPermissionOptions={this.permissionOptions}
         onBarCodeRead={({ data }) => {
           if (data !== this.state.previousData && this.verifyData(data)) {
             const claim = { holder: data, issuer: issuer.address };
@@ -93,7 +105,7 @@ class ScanQRCodePage extends PureComponent <Props> {
         }}
       >
         {this.renderContentView()}
-      </Camera>
+      </RNCamera>
     );
   }
 
