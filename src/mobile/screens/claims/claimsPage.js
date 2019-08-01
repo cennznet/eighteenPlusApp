@@ -15,7 +15,8 @@
  */
 
 import React, { PureComponent } from 'react';
-import { ActionSheetIOS, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
+import ActionSheet from 'react-native-actionsheet';
 import { isEmpty } from 'lodash';
 
 import { defaultNavigationOptions } from '../../navigator/appNavigationOptions';
@@ -86,18 +87,19 @@ class ClaimsPage extends PureComponent <Props> {
     </EmptyContainer>
   );
 
-  showActionSheet = (item) => {
+  renderActionSheetView = (item) => {
     const { onRemoveClaim } = this.props;
-    ActionSheetIOS.showActionSheetWithOptions(
-      {
-        title: 'Would you like to delete this claim',
-        options: ['Cancel', 'Delete'],
-        destructiveButtonIndex: 1,
-        cancelButtonIndex: 0,
-      },
-      (index) => {
-        if (index === 1) onRemoveClaim(item);
-      },
+    return (
+      <ActionSheet
+        ref={a => this.ActionSheet = a}
+        title={'Would you like to delete this claim'}
+        options={['Cancel', 'Delete']}
+        destructiveButtonIndex={1}
+        cancelButtonIndex={0}
+        onPress={(index) => {
+          if (index === 1) onRemoveClaim(item);
+        }}
+      />
     );
   }
 

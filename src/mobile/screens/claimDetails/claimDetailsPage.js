@@ -15,8 +15,9 @@
  */
 
 import React, { PureComponent } from 'react';
-import { ActionSheetIOS, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import QRCode from 'react-native-qrcode';
+import ActionSheet from 'react-native-actionsheet';
 
 import { Container, ContentContainer, ButtonContainer, QRContainer, Text } from './style';
 import { defaultNavigationOptions } from '../../navigator/appNavigationOptions';
@@ -45,24 +46,26 @@ class ClaimDetailsPage extends PureComponent <Props> {
     );
   };
 
-  showActionSheet = () => {
+  renderActionSheetView = () => {
     const { claim, onRemoveClaim } = this.props;
-    ActionSheetIOS.showActionSheetWithOptions(
-      {
-        title: 'Would you like to delete this claim',
-        options: ['Cancel', 'Delete'],
-        destructiveButtonIndex: 1,
-        cancelButtonIndex: 0,
-      },
-      (index) => {
-        if (index === 1) onRemoveClaim(claim);
-      },
+    return (
+      <ActionSheet
+        ref={a => this.ActionSheet = a}
+        title={'Would you like to delete this claim'}
+        options={['Cancel', 'Delete']}
+        destructiveButtonIndex={1}
+        cancelButtonIndex={0}
+        onPress={(index) => {
+          if (index === 1) onRemoveClaim(claim);
+        }}
+      />
     );
   }
 
   render() {
     const { claim, loading } = this.props;
     const { issuer, holder, topic } = claim || {};
+    console.log('claim:', claim);
     const claimStr = JSON.stringify(claim);
     return (
       <ScrollView>
@@ -84,10 +87,11 @@ class ClaimDetailsPage extends PureComponent <Props> {
             <Button
               type="deny"
               title="Remove claim"
-              onPress={this.showActionSheet}
+              onPress={() => this.ActionSheet.show()}
             />
           </ButtonContainer>
           <Loading visible={loading.status} />
+          {this.renderActionSheetView()}
         </Container>
       </ScrollView>
     );
