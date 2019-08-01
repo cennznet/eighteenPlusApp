@@ -3,6 +3,7 @@ package com.eighteenplusapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.reactnative.camera.RNCameraPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.clipsub.RNShake.RNShakeEventPackage;
@@ -10,8 +11,6 @@ import com.bitgo.randombytes.RandomBytesPackage;
 import com.mkuczera.RNReactNativeHapticFeedbackPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -33,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNCameraPackage(),
             new AsyncStoragePackage(),
             new VectorIconsPackage(),
             new RNShakeEventPackage(),
@@ -40,8 +40,6 @@ public class MainApplication extends Application implements ReactApplication {
             new RNReactNativeHapticFeedbackPackage(),
             new RNGestureHandlerPackage(),
             new ReactNativeExceptionHandlerPackage(),
-            new RNDeviceInfo(),
-            new RCTCameraPackage(),
             new LottiePackage()
       );
     }

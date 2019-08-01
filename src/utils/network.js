@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-import DeviceInfo from 'react-native-device-info';
-
 const apiKey = '5b55b29e-bcb0-4ec7-9ae3-7c262ab0029c';
 
 const network = {
   url: `wss://rimu.unfrastructure.io/ws?apikey=${apiKey}`,
   type: 'Rimu'
 };
-
-const versionNumber = DeviceInfo.getVersion();
-const builderNumber = DeviceInfo.getBuildNumber();
-const version = `v${versionNumber} (${builderNumber})`;
 
 export default network;
