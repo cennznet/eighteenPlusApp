@@ -14,7 +14,8 @@ and select the specific node version.
 ## Run Project
 
 1. `yarn install`
-2. Run `react-native run-ios`
+2. `yarn start`
+3. Run `react-native run-ios` or `react-native run-android`
 
 ## Demo screens
 
