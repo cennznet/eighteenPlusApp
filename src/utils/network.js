@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-const apiKey = '5b55b29e-bcb0-4ec7-9ae3-7c262ab0029c';
-
 const network = {
-  url: `wss://rimu.unfrastructure.io/ws?apikey=${apiKey}`,
+  url: 'wss://rimu.unfrastructure.io/public/ws',
   type: 'Rimu'
 };
 
